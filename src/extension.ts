@@ -3,7 +3,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { LUA_MODE } from './luaMode';
-import { MOONSCRIPT_MODE } from './moonscriptMode';
 import { getSuggestions } from './loveAutocomplete'
 import { LoveSignatureHelpProvider } from './loveFuncitonSuggestions';
 
@@ -20,7 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "love-autocomplete" is now active!');
     // Setup our plugin to help with function signatures
     context.subscriptions.push(vscode.languages.registerSignatureHelpProvider(LUA_MODE, new LoveSignatureHelpProvider(vscode.workspace.getConfiguration('lua')['docsTool']), '(', ','));
-    context.subscriptions.push(vscode.languages.registerSignatureHelpProvider(MOONSCRIPT_MODE, new LoveSignatureHelpProvider(vscode.workspace.getConfiguration('lua')['docsTool']), '(', ','));
     
     let completionItemProvider = {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.CompletionItem[] {
@@ -56,7 +54,6 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(LUA_MODE, completionItemProvider, '.'));
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(MOONSCRIPT_MODE, completionItemProvider, '.'));
 
     // Setup the command to open the documentation for the LOVE method the cursor is currently on
     var disposable = vscode.commands.registerCommand('LOVE.openDocumentation', () => {
@@ -77,16 +74,53 @@ export function activate(context: vscode.ExtensionContext) {
             openurl("https://love2d.org/wiki/" + functionCall);
         }
     });
+    context.subscriptions.push(disposable);
 
+    // Setup the command to open the documentation for the love method entered in the input box
+    var disposable = vscode.commands.registerCommand('LOVE.openDocumentationInput', () => {
+        // The code you place here will be executed every time your command is executed
+        let name = vscode.window.showInputBox({ prompt: "Enter the LOVE method you want to open the documentation for" })
+            .then(function (name) {
+                if (name) {
+                    openurl("https://love2d.org/wiki/" + name);
+                }
+            });
+    });
     context.subscriptions.push(disposable);
 
     // Register command to launch love
     var launch = vscode.commands.registerCommand('LOVE.launch', () => {
-        let terminal = vscode.window.createTerminal();
-        terminal.sendText("love --console .", true);
+        runInTerminal("lovec .");
     });
-
     context.subscriptions.push(launch);
+
+    // Register command to launch love with debugging logs
+    var launchwithdebuglog = vscode.commands.registerCommand('LOVE.launchwithdebuglog', () => {
+        runInTerminal("lovec . --debuglog");
+    });
+    context.subscriptions.push(launchwithdebuglog);
+
+}
+
+function runInTerminal(command: string) {
+    // check if any terminals are open
+    let terminal = vscode.window.terminals[0];
+    if (terminal) {
+        // if so, get the active terminal
+        let activeTerminal = vscode.window.activeTerminal;
+        if (activeTerminal) {
+            // if there is an active terminal, run the command in that terminal
+            activeTerminal.sendText(command, true);
+        } else {
+            // if not, create a new terminal
+            terminal = vscode.window.createTerminal();
+            terminal.sendText(command, true);
+        }
+    } else {
+        // if not, create a new terminal
+        terminal = vscode.window.createTerminal();
+        terminal.sendText(command, true);
+    }
 }
 
 // Get the full function call based on where the cursor is

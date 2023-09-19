@@ -1,11 +1,11 @@
 {
-    "name": "love",
-    "displayName": "LOVE",
+    "name": "love2d",
+    "displayName": "Love2d",
     "description": "Extension for the LOVE 2D game framework.",
     "version": "0.3.6",
     "publisher": "bschulte",
     "engines": {
-        "vscode": "^1.5.0"
+        "vscode": "^1.70.0"
     },
     "categories": [
         "Other"
@@ -13,7 +13,9 @@
     "activationEvents": [
         "onLanguage:lua",
         "onCommand:LOVE.launch",
-        "onCommand:LOVE.openDocumentation"
+        "onCommand:LOVE.launchwithdebuglog",
+        "onCommand:LOVE.openDocumentation",
+        "onCommand:LOVE.openDocumentationInput"
     ],
     "main": "./out/src/extension",
     "contributes": {
@@ -23,8 +25,16 @@
                 "title": "Open LOVE 2D documentation"
             },
             {
+                "command": "LOVE.openDocumentationInput",
+                "title": "Open LOVE 2D documentation for input"
+            },
+            {
                 "command": "LOVE.launch",
                 "title": "Launch LOVE 2D from the working directory"
+            },
+            {
+                "command": "LOVE.launchwithdebuglog",
+                "title": "Launch LOVE 2D from the working directory with debug log"
             }
         ],
         "keybindings": [
@@ -33,8 +43,16 @@
                 "key": "Ctrl+Alt+D"
             },
             {
+                "command": "LOVE.openDocumentationInput",
+                "key": "Alt+Shift+I"
+            },
+            {
                 "command": "LOVE.launch",
                 "key": "Alt+L"
+            },
+            {
+                "command": "LOVE.launchwithdebuglog",
+                "key": "Alt+Shift+L"
             }
         ]
     },
