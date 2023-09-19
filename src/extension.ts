@@ -55,39 +55,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(LUA_MODE, completionItemProvider, '.'));
 
-    // Setup the command to open the documentation for the LOVE method the cursor is currently on
-    var disposable = vscode.commands.registerCommand('LOVE.openDocumentation', () => {
-        // The code you place here will be executed every time your command is executed
-        let editor = vscode.window.activeTextEditor;
-        let functionCall = getFunctionCall(editor.selection.start.line, editor.selection.start.character);
-
-        if (functionCall.startsWith("love.")) {
-            console.log('Trying to open LOVE documentation!: ' + functionCall);
-            // Check if we have a Type or Enum in the functionCall by looking at the first character
-            // of each part of a split by '.' string and seeing if it's a capital letter
-            for (let part of functionCall.split('.')){
-                if (part[0] === part[0].toUpperCase()){
-                    openurl("https://love2d.org/wiki/" + part);
-                    return;
-                }
-            }
-            openurl("https://love2d.org/wiki/" + functionCall);
-        }
-    });
-    context.subscriptions.push(disposable);
-
-    // Setup the command to open the documentation for the love method entered in the input box
-    var disposable2 = vscode.commands.registerCommand('LOVE.openDocumentationInput', () => {
-        // The code you place here will be executed every time your command is executed
-        let name = vscode.window.showInputBox({ prompt: "Enter the LOVE method you want to open the documentation for" })
-            .then(function (name) {
-                if (name) {
-                    openurl("https://love2d.org/wiki/" + name);
-                }
-            });
-    });
-    context.subscriptions.push(disposable2);
-
     // Register command to launch love
     var launch = vscode.commands.registerCommand('LOVE.launch', () => {
         runInTerminal("lovec .");

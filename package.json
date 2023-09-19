@@ -13,21 +13,11 @@
     "activationEvents": [
         "onLanguage:lua",
         "onCommand:LOVE.launch",
-        "onCommand:LOVE.launchwithdebuglog",
-        "onCommand:LOVE.openDocumentation",
-        "onCommand:LOVE.openDocumentationInput"
+        "onCommand:LOVE.launchwithdebuglog"
     ],
     "main": "./out/src/extension",
     "contributes": {
         "commands": [
-            {
-                "command": "LOVE.openDocumentation",
-                "title": "Open LOVE 2D documentation"
-            },
-            {
-                "command": "LOVE.openDocumentationInput",
-                "title": "Open LOVE 2D documentation for input"
-            },
             {
                 "command": "LOVE.launch",
                 "title": "Launch LOVE 2D from the working directory"
@@ -38,14 +28,6 @@
             }
         ],
         "keybindings": [
-            {
-                "command": "LOVE.openDocumentation",
-                "key": "Ctrl+Alt+D"
-            },
-            {
-                "command": "LOVE.openDocumentationInput",
-                "key": "Alt+Shift+I"
-            },
             {
                 "command": "LOVE.launch",
                 "key": "Alt+L"
