@@ -1,4 +1,4 @@
-# love-autocomplete README
+# Love2D for VSCode README
 
 > STILL UPDATING THIS README!
 
