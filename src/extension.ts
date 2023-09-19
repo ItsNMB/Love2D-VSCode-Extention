@@ -6,7 +6,7 @@ import { LUA_MODE } from './luaMode';
 import { getSuggestions } from './loveAutocomplete'
 import { LoveSignatureHelpProvider } from './loveFuncitonSuggestions';
 
-export const EXT_TAG = "LOVE-Autocomplete";
+export const EXT_TAG = "Love2D";
 
 var openurl = require('openurl').open;
 
@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "love-autocomplete" is now active!');
+    console.log('Congratulations, your extension "love2d for vscode" is now active!');
     // Setup our plugin to help with function signatures
     context.subscriptions.push(vscode.languages.registerSignatureHelpProvider(LUA_MODE, new LoveSignatureHelpProvider(vscode.workspace.getConfiguration('lua')['docsTool']), '(', ','));
     
@@ -77,7 +77,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     // Setup the command to open the documentation for the love method entered in the input box
-    var disposable = vscode.commands.registerCommand('LOVE.openDocumentationInput', () => {
+    var disposable2 = vscode.commands.registerCommand('LOVE.openDocumentationInput', () => {
         // The code you place here will be executed every time your command is executed
         let name = vscode.window.showInputBox({ prompt: "Enter the LOVE method you want to open the documentation for" })
             .then(function (name) {
@@ -86,7 +86,7 @@ export function activate(context: vscode.ExtensionContext) {
                 }
             });
     });
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable2);
 
     // Register command to launch love
     var launch = vscode.commands.registerCommand('LOVE.launch', () => {
