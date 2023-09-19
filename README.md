@@ -1,11 +1,15 @@
 # love-autocomplete README
 
+> STILL UPDATING THIS README!
+
 This is a simple auto complete extension for the LOVE 2D game framework. It makes use of the LOVE API written in a lua table from [here](https://github.com/love2d-community/love-api)
 
 * Autocomplete for modules, functions, types, and enums
 * Signature suggestions for functions of modules and types
-* Ctrl+Alt+D tries to open the LOVE 2D documentation for whatever the cursor is currently on
-* Alt+L launches LOVE 2D in the current directory
+* Ctrl+Alt+D tries to open the Love2D documentation for whatever the cursor is currently on
+* Alt+Shift+I tries to open the Love2D documentation for whatever the user entered in the input
+* Alt+L launches Love2D in the current directory
+* Alt+Shift+L launches Love2D in the current directory with a --debuglog arg
 
 ## Requirements
 

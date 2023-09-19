@@ -1,9 +1,9 @@
 {
     "name": "love2d",
     "displayName": "Love2d",
-    "description": "Extension for the LOVE 2D game framework.",
+    "description": "Extension for the Love2D game framework.",
     "version": "0.3.6",
-    "publisher": "bschulte",
+    "publisher": "noah",
     "engines": {
         "vscode": "^1.70.0"
     },
